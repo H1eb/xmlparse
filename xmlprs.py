@@ -1,7 +1,7 @@
 from tkinter import *
 import xml.etree.ElementTree as ET
 from tkinter import messagebox
-
+import re
 
 def click_button():
     for i in range(height):  # Rows
@@ -18,11 +18,19 @@ def click_button():
                 if j == 3:
                     b.insert(i, 'pages')
                 if j == 4:
-                    b.insert(i, 'price')
+                    b.insert(i, '$')
+                if j == 5:
+                    b.insert(i, 'rub')
             else:
                 b = Entry(root, text="")
                 b.grid(row=i, column=j)
-                b.insert(i, xml[i - 1][j].text)
+                if j < 4:
+                    b.insert(i, xml[i - 1][j].text)
+                if j == 4:
+                    x1 = re.sub(r"\W", r'', xml[i - 1][j].text)
+                    b.insert(i, re.sub(r"\W", r'', x1))
+                if j == 5:
+                    b.insert(i, int(x1)*10)
 
 def edit_click():
     messagebox.showinfo("About", "Работу выполнили Сергеев, Матюшин, Шнабская")
@@ -35,7 +43,7 @@ xml = tree.getroot()
 root = Tk()
 root.title("XML parse")
 height = len(xml) + 1
-width = 5
+width = 6
 root.resizable(False, False)
 
 for i in range(height):  # Rows
