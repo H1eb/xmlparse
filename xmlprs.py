@@ -30,7 +30,7 @@ def click_button():
                     x1 = re.sub(r"\W", r'', xml[i - 1][j].text)
                     b.insert(i, re.sub(r"\W", r'', x1))
                 if j == 5:
-                    b.insert(i, int(x1)*10)
+                    b.insert(i, int(x1)*68.5)
 
 def edit_click():
     messagebox.showinfo("About", "Работу выполнили Сергеев, Матюшин, Шнабская")
